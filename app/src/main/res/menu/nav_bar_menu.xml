@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/rest_menu"
+        android:enabled="true"
+        android:title="@string/rest_title"
+        android:icon="@drawable/icon_location"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/food_menu"
+        android:enabled="true"
+        android:title="@string/food_title"
+        android:icon="@drawable/icon_search"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/home_menu"
+        android:enabled="true"
+        android:title="홈"
+        android:icon="@drawable/icon_home"
+        app:showAsAction="always"
+        android:checked="true"/>
+    <item
+        android:id="@+id/recipe_menu"
+        android:enabled="true"
+        android:title="@string/recipe_title"
+        android:icon="@drawable/icon_chat"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/cal_menu"
+        android:enabled="true"
+        android:title="@string/cal_title"
+        android:icon="@drawable/icon_calendar"
+        app:showAsAction="always"/>
+
+</menu>
