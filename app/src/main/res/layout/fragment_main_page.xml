@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainPage.mainPage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/tool_bar_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="20dp"
+                    android:radius="8dp"
+                    android:background="@drawable/radius_8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/restBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/radius_8dp"
+                        android:backgroundTint="@color/high_red_002">
+
+                        <TextView
+                            android:id="@+id/restTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:letterSpacing="-0.02"
+                            android:text="@string/rest_title"
+                            android:textColor="@color/high_red_000"
+                            android:textSize="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/restDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingMultiplier="1.2"
+                            android:text="@string/rest_desc"
+                            android:textColor="@color/high_red_001"
+                            android:textSize="14dp"
+                            app:layout_constraintStart_toStartOf="@+id/restTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/restTitle" />
+
+                        <ImageView
+                            android:id="@+id/restImg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="20dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/img_rest"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/restDesc" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/foodBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/radius_8dp"
+                        android:backgroundTint="@color/high_blue_002">
+
+                        <TextView
+                            android:id="@+id/foodTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:letterSpacing="-0.02"
+                            android:text="@string/food_title"
+                            android:textColor="@color/high_blue_000"
+                            android:textSize="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/foodDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingMultiplier="1.2"
+                            android:text="@string/food_desc"
+                            android:textColor="@color/high_blue_001"
+                            android:textSize="14dp"
+                            app:layout_constraintStart_toStartOf="@+id/foodTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/foodTitle" />
+
+                        <ImageView
+                            android:id="@+id/foodImg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="20dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/img_food"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/foodDesc" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/recipeBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/radius_8dp"
+                        android:backgroundTint="@color/high_blue_002">
+
+                        <TextView
+                            android:id="@+id/recipeTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:letterSpacing="-0.02"
+                            android:text="@string/recipe_title"
+                            android:textColor="@color/high_blue_000"
+                            android:textSize="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/recipeDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingMultiplier="1.2"
+                            android:text="@string/recipe_desc"
+                            android:textColor="@color/high_blue_001"
+                            android:textSize="14dp"
+                            app:layout_constraintStart_toStartOf="@+id/recipeTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/recipeTitle" />
+
+                        <ImageView
+                            android:id="@+id/recipeImg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="20dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/img_recipe"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/recipeDesc" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/calBtn"
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/radius_8dp"
+                        android:backgroundTint="@color/high_red_002">
+
+                        <TextView
+                            android:id="@+id/calTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:fontFamily="@font/pretendard_semibold"
+                            android:letterSpacing="-0.02"
+                            android:text="@string/cal_title"
+                            android:textColor="@color/high_red_000"
+                            android:textSize="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/calDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/pretendard_medium"
+                            android:letterSpacing="-0.02"
+                            android:lineSpacingMultiplier="1.2"
+                            android:text="@string/cal_desc"
+                            android:textColor="@color/high_red_001"
+                            android:textSize="14dp"
+                            app:layout_constraintStart_toStartOf="@+id/calTitle"
+                            app:layout_constraintTop_toBottomOf="@+id/calTitle" />
+
+                        <ImageView
+                            android:id="@+id/calImg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="20dp"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/img_calendar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/calDesc" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
