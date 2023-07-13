@@ -1,75 +1,81 @@
 package com.app.veggie.restSearch
 
-import android.content.Context
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.app.veggie.MainActivity
 import com.app.veggie.R
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
-import kotlinx.android.synthetic.main.fragment_rest_map.*
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 class restMap : Fragment(), OnMapReadyCallback {
-    private lateinit var mapView: MapView
 
-    var mainActivity: MainActivity? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainActivity = context as MainActivity
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var googleMap: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mapView = googleMapView
-        mapView.onCreate(savedInstanceState)
-        mapView.getMapAsync(this)
-
-        return inflater.inflate(R.layout.fragment_rest_map, container, false)
+        val view = inflater.inflate(R.layout.fragment_rest_map, container, false)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        mapView.onStart()
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            googleMap.isMyLocationEnabled = true
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    val latLng = LatLng(location.latitude, location.longitude)
+                    googleMap.addMarker(
+                        MarkerOptions().position(latLng).title("현위치")
+                    )
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f))
+                }
+            }
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_LOCATION_PERMISSION
+            )
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == REQUEST_LOCATION_PERMISSION) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                onMapReady(googleMap)
+            }
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        // 구글 맵이 준비되었을 때 호출되는 콜백 함수입니다.
-        // 여기서 지도 관련 작업을 수행할 수 있습니다.
+    companion object {
+        private const val REQUEST_LOCATION_PERMISSION = 1
     }
 }
