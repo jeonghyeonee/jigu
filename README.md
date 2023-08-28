@@ -18,7 +18,8 @@ e.g. jeonghyeonee/MakeMainPage/1
   - colors.xml: the color code file
   - strings.xml: using text
 - calPage: the menu card page
-- foodPage: search food using barcord
+- foodPage: search food using barcode
 - mainPage: the main Page of the app(== Home)
-- recipePage: search the Food Restaurant
-- MainActivity.kt: the basic of Main
+- recipePage: a chatbot that tells you the ingredient recipe you have
+- restSearch: Search the Food Restaurant
+- MainActivity.kt: the basis of Main
