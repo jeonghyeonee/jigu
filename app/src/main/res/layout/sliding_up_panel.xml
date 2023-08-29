@@ -16,7 +16,8 @@
         android:layout_width="48dp"
         android:layout_height="4dp"
         android:layout_marginTop="8dp"
-        android:background="@color/gray030"
+        android:background="@drawable/radius_8dp"
+        android:backgroundTint="@color/gray030"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,11 +74,11 @@
             app:layout_constraintTop_toBottomOf="@+id/location_title">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/arrange_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
-            android:orientation="horizontal">
+                android:id="@+id/arrange_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="7dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/rest_count_num"
@@ -96,19 +97,18 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="100dp"
+                android:scrollbars="none"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginBottom="120dp">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rest_list_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none"
-                    tools:listitem="@layout/rest_list_recycler"
-                    android:layout_marginBottom="60dp"/>
+                    tools:listitem="@layout/rest_list_recycler"/>
             </ScrollView>
 
         </LinearLayout>
