@@ -43,7 +43,6 @@ class calPage : Fragment() {
             .addOnSuccessListener { document ->
                 if (document["contents"] != null){
                     testText = document["contents"] as String
-                    firebaseText.text = testText
                 }else{
                     testText = "데이터 없음"
                     firebaseText.text = testText
