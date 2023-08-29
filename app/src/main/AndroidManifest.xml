@@ -9,7 +9,7 @@
 
     <application
         android:name="data.App"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -19,11 +19,8 @@
         tools:targetApi="n">
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD1m_X75xovN8bos0ptWtYb6FlBbtRKKpQ" />
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="ldowpu2y5k" />
 
         <uses-library
             android:name="org.apache.http.legacy"
