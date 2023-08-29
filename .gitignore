@@ -14,6 +14,8 @@
 .cxx
 local.properties
 
+README.md
+
 
 # Add the Ignore files (using .gitignore)
 # Created by https://www.toptal.com/developers/gitignore/api/androidstudio
