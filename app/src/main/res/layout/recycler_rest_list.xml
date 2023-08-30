@@ -19,7 +19,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/list_item"
             android:layout_width="match_parent"
-            android:layout_height="106dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,51 +34,75 @@
                 android:layout_marginBottom="16dp"
                 android:adjustViewBounds="true"
                 android:background="@drawable/radius_8dp"
+                android:clipToOutline="true"
+                android:outlineProvider="background"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:outlineProvider="background"
-                android:clipToOutline="true"
                 app:srcCompat="@drawable/radius_8dp" />
 
-            <TextView
-                android:id="@+id/rest_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="@font/pretendard_bold"
-                android:textColor="@color/main_green_001"
-                android:textSize="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/restImg"
-                tools:text="식당타입" />
+            <ImageView
+                android:id="@+id/starIcon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="6dp"
+                android:adjustViewBounds="true"
+                android:outlineProvider="background"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_rest_fav"/>
 
             <TextView
                 android:id="@+id/rest_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="@font/pretendard_semibold"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/pretendard_bold"
                 android:text="TextView"
                 android:textColor="@color/base_black"
                 android:textSize="14dp"
                 android:textStyle="normal"
-                app:layout_constraintStart_toStartOf="@+id/rest_type"
-                app:layout_constraintTop_toBottomOf="@+id/rest_type" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/restImg"/>
+
+            <TextView
+                android:id="@+id/rest_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:textColor="@color/main_green_001"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/rest_name"
+                app:layout_constraintStart_toEndOf="@+id/rest_name"
+                app:layout_constraintTop_toTopOf="@+id/rest_name"
+                tools:text="식당타입" />
 
             <TextView
                 android:id="@+id/rest_dist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="2dp"
-                android:fontFamily="@font/pretendard_medium"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/pretendard_semibold"
                 android:text="0m"
                 android:textColor="@color/gray030"
                 android:textSize="10dp"
-                app:layout_constraintBottom_toBottomOf="@+id/rest_name"
-                app:layout_constraintStart_toEndOf="@+id/rest_name" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rest_name" />
+
+            <View
+                android:id="@+id/divide_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="invisible"
+                android:background="@drawable/radius_8dp"
+                android:backgroundTint="@color/sub_grey_002"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,11 @@ package com.app.veggie.restSearch
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.app.veggie.MainActivity
 import com.app.veggie.R
 import com.app.veggie.databinding.FragmentRestMapBinding
+import com.app.veggie.fragmentRest
 import com.app.veggie.restSearch.restMap.Companion.latitude
 import com.app.veggie.restSearch.restMap.Companion.longitude
 import com.bumptech.glide.Glide
@@ -39,9 +44,6 @@ class restMap : Fragment(), OnMapReadyCallback {
     private lateinit var binding : FragmentRestMapBinding
 
     private lateinit var mContext: Context
-
-    private lateinit var restListView: RecyclerView
-    private lateinit var restListAdapter: RestAdapter
 
     // 파이어베이스 세팅 - 스토리지
     private val storage: FirebaseStorage =
@@ -79,6 +81,7 @@ class restMap : Fragment(), OnMapReadyCallback {
         naverMap.locationSource = locationSource
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
 
+
 //        resetBtn.visibility = View.INVISIBLE
 
         // Toast.makeText(mContext, "${latitude}, ${longitude}", Toast.LENGTH_SHORT).show()
@@ -99,6 +102,7 @@ class restMap : Fragment(), OnMapReadyCallback {
             naverMap.removeOnLocationChangeListener { }
             latitude = naverMap.cameraPosition.target.latitude
             longitude = naverMap.cameraPosition.target.longitude
+            Log.e("현치 위치", "$latitude, $longitude")
 
             //Log.e("CheckCurrentCoord", "현재 좌표 : $latitude, $longitude")
 
@@ -110,7 +114,8 @@ class restMap : Fragment(), OnMapReadyCallback {
 //                }
 //            }
         }
-        loadRestList(latitude, longitude, 1500, mapOf("isOption" to false))
+
+        currentLocationData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -152,19 +157,25 @@ class restMap : Fragment(), OnMapReadyCallback {
         mapView.onStart()
     }
 
+    fun currentLocationData(){
+        naverMap.locationSource = locationSource
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
+        if(binding.slidingList.currentLocation.text != "현재 위치"){
+            binding.slidingList.currentLocation.textSize = 23f
+            binding.slidingList.currentLocation.text = "현재 위치"
+        }
+        binding.searchText.text = null
+
+        loadRestList(latitude, longitude, 1500, mapOf("isOption" to false))
+    }
+
     override fun onResume() {
         super.onResume()
         mapView.onResume()
 
         btn_current_location.setOnClickListener{
-            naverMap.locationSource = locationSource
-            naverMap.locationTrackingMode = LocationTrackingMode.Follow
-
-            binding.slidingList.currentLocation.textSize= 21F
-            binding.slidingList.currentLocation.text = "현재 위치"
-            binding.searchText.text = null
-
-            loadRestList(latitude, longitude, 1500, mapOf("isOption" to false))
+            currentLocationData()
         }
     }
 
@@ -220,30 +231,30 @@ class restMap : Fragment(), OnMapReadyCallback {
         val mAdapter = context?.let { RestAdapter(restList, mContext) }
         binding.slidingList.restListRecycler.adapter = mAdapter
 
+        Log.e("로딩 위치", "$latitude, $longitude")
+
         restList.clear()
 
         // 사용자 현재 위치
-        val userLocation = GeoPoint(latitude, longitude) // 사용자의 위도와 경도 값
-
-        // 3km 이내의 위치 쿼리 생성
-        val centerLatitude = userLocation.latitude
-        val centerLongitude = userLocation.longitude
-        val radiusInKm = radius/1000 // 반경 km
         val field = "rest_geo" // 파이어스토어에 저장된 위치 정보 필드 이름
 
-        // 위도(latitude) 범위 계산
-        val latitudeDelta = radiusInKm / 111.0 // 1도의 위도 차이는 약 111km
-        val minLatitude = centerLatitude - latitudeDelta
-        val maxLatitude = centerLatitude + latitudeDelta
+        val center = GeoPoint(latitude, longitude)
+        val lat = center.latitude
+        val lng = center.longitude
+        val degreeLat = (radius/1000) / 111.319f // 1도의 거리 (약 111km)
+        val degreeLng = (radius/1000) / (111.319f * cos(lat * (PI / 180))) // 위도에 따른 경도의 거리
 
-        // 경도(longitude) 범위 계산
-        val longitudeDelta = radiusInKm / (111.0 * cos(toRadians(centerLatitude)))
-        val minLongitude = centerLongitude - longitudeDelta
-        val maxLongitude = centerLongitude + longitudeDelta
+        Log.d("longitudeCheck0 ", (lng).toString())
+        Log.d("longitudeCheck1 ", (lng - degreeLng).toString())
+        Log.d("longitudeCheck2 ", (lng + degreeLng).toString())
+
+        val southwest = GeoPoint(lat - degreeLat, lng - degreeLng)
+        val northeast = GeoPoint(lat + degreeLat, lng + degreeLng)
+
 
         val query = firestore.collection("TB_REST")
-            .whereGreaterThanOrEqualTo(field, GeoPoint(minLatitude, minLongitude))
-            .whereLessThanOrEqualTo(field, GeoPoint(maxLatitude, maxLongitude))
+            .whereGreaterThan(field, southwest)
+            .whereLessThan(field, northeast)
 
         query.get()
             .addOnSuccessListener { results ->
@@ -265,6 +276,8 @@ class restMap : Fragment(), OnMapReadyCallback {
                     tempList.add(rest)
                 }
 
+                tempList.sortBy { RestAdapter.calculateDistance(latitude, longitude, it.REST_LAT, it.REST_LNG) }
+
                 restList = tempList
                 updateMarker(restList)
 
@@ -284,7 +297,7 @@ class RestAdapter(private val restList: List<Rest>, private val context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RestViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.rest_list_recycler, parent, false)
+            .inflate(R.layout.recycler_rest_list, parent, false)
         return RestViewHolder(view)
     }
 
@@ -302,7 +315,17 @@ class RestAdapter(private val restList: List<Rest>, private val context: Context
             // 뷰홀더 내부의 뷰에 식당 정보 설정
             itemView.findViewById<TextView>(R.id.rest_name).text = rest.REST_NAME
             itemView.findViewById<TextView>(R.id.rest_type).text = rest.REST_CATEGORY
-            itemView.findViewById<TextView>(R.id.rest_dist).text = calculateDistance(lat1 = latitude, lat2 = rest.REST_LAT, lon1 = longitude, lon2 = rest.REST_LNG)
+
+            val distance = calculateDistance(lat1 = latitude, lat2 = rest.REST_LAT, lon1 = longitude, lon2 = rest.REST_LNG)
+            var rest_dict_text = ""
+
+            if (distance < 1) {
+                rest_dict_text = "${(distance * 1000).toInt()}m" // 1000m 미만인 경우 m로 반환
+            } else {
+                rest_dict_text = String.format("%.1fkm", distance) // 1000m 이상인 경우 1.0km 형태로 반환
+            }
+
+            itemView.findViewById<TextView>(R.id.rest_dist).text = rest_dict_text
             val rest_image = itemView.findViewById<ImageView>(R.id.restImg)
 
             if(rest.REST_IMG != ""){
@@ -315,23 +338,28 @@ class RestAdapter(private val restList: List<Rest>, private val context: Context
             }else{
                 rest_image.visibility = View.INVISIBLE
             }
+
+            if (adapterPosition != restList.size - 1) {
+                itemView.findViewById<View>(R.id.divide_line).visibility = View.VISIBLE
+            } else {
+                itemView.findViewById<View>(R.id.divide_line).visibility = View.GONE
+            }
         }
     }
 
-    fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): String {
-        val R = 6371 // 지구의 반지름 (단위: km)
-        val dLat = toRadians(lat2 - lat1)
-        val dLon = toRadians(lon2 - lon1)
-        val a = sin(dLat / 2) * sin(dLat / 2) +
-                cos(toRadians(lat1)) * cos(toRadians(lat2)) *
-                sin(dLon / 2) * sin(dLon / 2)
-        val c = 2 * atan2(sqrt(a), sqrt(1 - a))
-        val distance = R * c // 두 지점 사이의 거리 (단위: km)
+    companion object{
+        fun calculateDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+            val R = 6371 // 지구의 반지름 (단위: km)
+            val dLat = toRadians(lat2 - lat1)
+            val dLon = toRadians(lon2 - lon1)
+            val a = sin(dLat / 2) * sin(dLat / 2) +
+                    cos(toRadians(lat1)) * cos(toRadians(lat2)) *
+                    sin(dLon / 2) * sin(dLon / 2)
+            val c = 2 * atan2(sqrt(a), sqrt(1 - a))
+            val distance = R * c // 두 지점 사이의 거리 (단위: km)
 
-        return if (distance < 1) {
-            "${(distance * 1000).toInt()}m" // 1000m 미만인 경우 m로 반환
-        } else {
-            String.format("%.1fkm", distance) // 1000m 이상인 경우 1.0km 형태로 반환
+            return distance
         }
     }
+
 }
