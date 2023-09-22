@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Veggie</string>
+    <string name="app_name">지구마을 방범대</string>
 
     <!--  메인 페이지  -->
     <string name="rest_title">식당찾기</string>
     <string name="rest_desc">나에게 맞는\n식당을 찾아봐요!</string>
 
     <string name="food_title">식품찾기</string>
-    <string name="food_desc">바코드를 찍어\n식품 정보를 찾아요!!</string>
+    <string name="food_desc">바코드를 찍어\n식품 정보를 찾아요!</string>
 
     <string name="recipe_title">레시피챗</string>
     <string name="recipe_desc">OO에게\n레시피를 물어봐요!</string>
@@ -17,5 +17,5 @@
     <string name="banner_all">모두보기</string>
 
     <!--  식당 검색 페이지  -->
-    <string name="rest_search_hint">장소명 검색</string>
+    <string name="rest_search_hint">식당 이름이나, 원하는 메뉴를 입력해주세요</string>
 </resources>

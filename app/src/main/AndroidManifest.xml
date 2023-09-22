@@ -17,6 +17,12 @@
         android:theme="@style/Theme.Veggie"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".accountPage.mainLogin"
+            android:exported="false" />
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
@@ -27,7 +33,7 @@
             android:required="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".IntroActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
