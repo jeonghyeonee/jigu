@@ -1,15 +1,19 @@
-# MP_Project
-Mobile Programming Project Preparation
+# 지구방범대(JiGu)
+
+vegiterian을 위한 앱
 
 ## The Rule of Branch Name
+
 ```
 ID/Name/IssueNum
 ```
+
 ```
 e.g. jeonghyeonee/MakeMainPage/1
 ```
 
 ## The Use of the Folder
+
 - drawable: the source of icon, img using in app
 - layout: You can check the layout of this app in layout.xml
   - tool_bar.xml: title bar
