@@ -8,12 +8,13 @@
 
     <!-- TextureView for camera preview -->
 
-    <me.dm7.barcodescanner.zxing.ZXingScannerView
-        android:id="@+id/scannerView"
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcodeScannerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
-    <!-- Scan button -->
+
+<!--    &lt;!&ndash; Scan button &ndash;&gt;
     <Button
         android:id="@+id/btnUploadBarcode"
         android:layout_width="wrap_content"
@@ -22,7 +23,7 @@
         android:layout_marginBottom="160dp"
         android:text="Upload Barcode" />
 
-    <!-- Barcode input EditText -->
+    &lt;!&ndash; Barcode input EditText &ndash;&gt;
     <EditText
         android:id="@+id/editTextBarcode"
         android:layout_width="200dp"
@@ -35,7 +36,7 @@
 
         android:inputType="numberDecimal" />
 
-    <!-- Text Input Barcode Button -->
+    &lt;!&ndash; Text Input Barcode Button &ndash;&gt;
     <Button
         android:id="@+id/btnTextBarcode"
         android:layout_width="wrap_content"
@@ -44,6 +45,6 @@
         android:layout_gravity="bottom|end"
         android:layout_marginRight="80dp"
         android:layout_marginBottom="110dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp" />-->
 
 </FrameLayout>
