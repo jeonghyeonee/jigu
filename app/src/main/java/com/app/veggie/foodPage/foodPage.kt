@@ -15,11 +15,8 @@ import com.google.zxing.Result
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import kotlinx.android.synthetic.main.fragment_food_page.btnBarcodeInput
+import kotlinx.android.synthetic.main.fragment_food_page.etBarcodeInput
 
 /**
  * A simple [Fragment] subclass.
@@ -58,8 +55,12 @@ class foodPage : Fragment() {
         return view
     }
 
+    private fun showBarcodeToast(barcode: String) {
+        Toast.makeText(requireActivity(), "Barcode: $barcode", Toast.LENGTH_SHORT).show()
+    }
+
     private fun startScanner() {
-        barcodeView.decodeSingle { result: BarcodeResult? ->
+        barcodeView.decodeContinuous { result: BarcodeResult? ->
             // 바코드 스캔 결과 처리
             // result?.text에 바코드의 값이 들어 있습니다.
             result?.let {
@@ -110,7 +111,6 @@ class foodPage : Fragment() {
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
     }
+
 }
-
-
 

@@ -11,40 +11,37 @@
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/barcodeScannerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="520dp" />
 
-
-<!--    &lt;!&ndash; Scan button &ndash;&gt;
-    <Button
-        android:id="@+id/btnUploadBarcode"
+<!--    <Button
+        android:id="@+id/btnUploadImage"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Image"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="170dp"
+        android:layout_below="@id/barcodeScannerView" />-->
+
+    <!-- Barcode Input EditText -->
+
+    <!-- Barcode Input Button -->
+    <EditText
+        android:id="@+id/etBarcodeInput"
+        android:layout_width="284dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="160dp"
-        android:text="Upload Barcode" />
-
-    &lt;!&ndash; Barcode input EditText &ndash;&gt;
-    <EditText
-        android:id="@+id/editTextBarcode"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="90dp"
+        android:layout_marginBottom="120dp"
         android:hint="Enter Barcode"
-        android:layout_marginBottom="100dp"
+        android:inputType="text" />
 
-        android:inputType="numberDecimal" />
-
-    &lt;!&ndash; Text Input Barcode Button &ndash;&gt;
     <Button
-        android:id="@+id/btnTextBarcode"
+        android:id="@+id/btnBarcodeInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Input"
-        android:layout_gravity="bottom|end"
-        android:layout_marginRight="80dp"
-        android:layout_marginBottom="110dp"
-        android:layout_marginTop="16dp" />-->
+        android:text="OK"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="90dp"
+        android:layout_below="@id/etBarcodeInput" />
+
 
 </FrameLayout>
