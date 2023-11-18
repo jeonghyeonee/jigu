@@ -1,23 +1,43 @@
 package com.app.veggie.foodPage
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.fragment.app.Fragment
 import com.app.veggie.R
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.BinaryBitmap
+import com.google.zxing.DecodeHintType
+import com.google.zxing.MultiFormatReader
+import com.google.zxing.RGBLuminanceSource
+import com.google.zxing.ReaderException
 import com.google.zxing.Result
+import com.google.zxing.common.HybridBinarizer
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import kotlinx.android.synthetic.main.fragment_food_page.btnBarcodeInput
 import kotlinx.android.synthetic.main.fragment_food_page.etBarcodeInput
+import java.io.IOException
 
 /**
  * A simple [Fragment] subclass.
@@ -31,8 +51,11 @@ class foodPage : Fragment() {
 
     private var isContinuousScanningEnabled = true
 
+
+
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 100
+        private val IMAGE_PICK_REQUEST_CODE = 123
     }
 
     override fun onCreateView(
@@ -45,6 +68,7 @@ class foodPage : Fragment() {
         captureManager = CaptureManager(requireActivity(), barcodeView)
         captureManager.initializeFromIntent(requireActivity().intent, savedInstanceState)
         val btnBarcodeInput = view.findViewById<Button>(R.id.btnBarcodeInput)
+        val btnUploadImg = view.findViewById<Button>(R.id.btnUploadImg)
 
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -54,6 +78,19 @@ class foodPage : Fragment() {
             startScanner()
         } else {
             requestCameraPermission()
+        }
+
+        btnUploadImg.setOnClickListener {
+            // Start an image picker activity
+            isContinuousScanningEnabled = false
+
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, IMAGE_PICK_REQUEST_CODE)
+
+            // 가져온 바코드 값을 Toast로 표시
+
+            isContinuousScanningEnabled = true
+
         }
 
         btnBarcodeInput.setOnClickListener {
@@ -138,6 +175,48 @@ class foodPage : Fragment() {
         // 실제로는 바코드 값을 어디서 가져오는지에 따라 구현이 달라집니다.
         // 예시로 EditText의 값을 가져오는 것으로 가정합니다.
         return etBarcodeInput.text.toString()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == IMAGE_PICK_REQUEST_CODE && resultCode == RESULT_OK) {
+            val selectedImageUri = data?.data
+            selectedImageUri?.let {
+                processBarcodeFromImage(selectedImageUri)
+            }
+        }
+    }
+
+    private fun processBarcodeFromImage(imageUri: Uri) {
+        try {
+            // Use ContentResolver to get the bitmap from the URI
+            val inputStream = requireContext().contentResolver.openInputStream(imageUri)
+            val originalBitmap = BitmapFactory.decodeStream(inputStream)
+
+            // 이미지를 90도 회전
+            val matrix = Matrix()
+            matrix.postRotate(90f)
+            val rotatedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height, matrix, true)
+
+            // Decode the barcode using ZXing's MultiFormatReader
+            val result = MultiFormatReader().decode(
+                BinaryBitmap(HybridBinarizer(RGBLuminanceSource(rotatedBitmap.width, rotatedBitmap.height, IntArray(rotatedBitmap.width * rotatedBitmap.height).apply {
+                    rotatedBitmap.getPixels(this, 0, rotatedBitmap.width, 0, 0, rotatedBitmap.width, rotatedBitmap.height)
+                })))
+            )
+
+            // Handle the barcode result (e.g., display in a Toast)
+            result?.let {
+                showBarcodeToast(it.text)
+            }
+        } catch (e: ReaderException) {
+            // Handle exceptions that may occur during barcode decoding
+            showBarcodeToast("Barcode not found or could not be decoded. ${e.message}")
+        } catch (e: IOException) {
+            // Handle IOException
+            showBarcodeToast("Error reading the image. ${e.message}")
+        }
     }
 
 

@@ -13,23 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="520dp" />
 
-<!--    <Button
-        android:id="@+id/btnUploadImage"
+    <Button
+        android:id="@+id/btnUploadImg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload Image"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="170dp"
-        android:layout_below="@id/barcodeScannerView" />-->
+        android:layout_marginBottom="180dp"
+        android:layout_below="@id/barcodeScannerView" />
 
     <!-- Barcode Input EditText -->
 
     <!-- Barcode Input Button -->
+
     <EditText
         android:id="@+id/etBarcodeInput"
-        android:layout_width="284dp"
+        android:layout_width="269dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom|left"
+        android:layout_marginLeft="40dp"
         android:layout_marginBottom="120dp"
         android:hint="Enter Barcode"
         android:inputType="text" />
@@ -39,8 +41,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OK"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="90dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="130dp"
+        android:layout_marginRight="60dp"
         android:layout_below="@id/etBarcodeInput" />
 
 
