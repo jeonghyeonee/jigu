@@ -78,6 +78,8 @@ dependencies {
     implementation 'io.github.ParkSangGwon:tedclustering-naver:1.0.2'
 
     implementation 'com.airbnb.android:lottie:3.0.7'
+
+    implementation "com.kakao.sdk:v2-user:2.16.0"
 }
 
 apply plugin: 'com.google.gms.google-services'

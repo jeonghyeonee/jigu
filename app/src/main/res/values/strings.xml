@@ -18,4 +18,11 @@
 
     <!--  식당 검색 페이지  -->
     <string name="rest_search_hint">식당 이름이나, 원하는 메뉴를 입력해주세요</string>
+
+    <!--  어카운트 관련 페이지  -->
+    <string name="app_preview">둘러보기</string>
+
+    <string name="account_login_title">지구마을 방범대의\n멤버가 되어주세요!</string>
+    <string name="account_login_info">회원가입 진행 시 서비스 이용약관 및\n개인정보 처리방침에 동의한 것으로 간주합니다.</string>
+
 </resources>
