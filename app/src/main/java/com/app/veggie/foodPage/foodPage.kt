@@ -24,13 +24,10 @@ import androidx.core.graphics.green
 import androidx.core.graphics.red
 import androidx.fragment.app.Fragment
 import com.app.veggie.R
-import com.google.zxing.BarcodeFormat
 import com.google.zxing.BinaryBitmap
-import com.google.zxing.DecodeHintType
 import com.google.zxing.MultiFormatReader
 import com.google.zxing.RGBLuminanceSource
 import com.google.zxing.ReaderException
-import com.google.zxing.Result
 import com.google.zxing.common.HybridBinarizer
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CaptureManager
