@@ -77,9 +77,15 @@ dependencies {
 
     implementation 'io.github.ParkSangGwon:tedclustering-naver:1.0.2'
 
+
     implementation 'com.airbnb.android:lottie:3.0.7'
 
     implementation "com.kakao.sdk:v2-user:2.16.0"
+
+    // for barcode function
+    implementation 'com.google.zxing:core:3.4.0'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
