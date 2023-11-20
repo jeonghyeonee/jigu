@@ -13,7 +13,8 @@ data class Rest (
     val REST_GU: String?,
     val REST_DONG: String?,
     val REST_LAT: Double,
-    val REST_LNG: Double
+    val REST_LNG: Double,
+    val REST_IMG: String
 ): Serializable, TedClusterItem {
     override fun getTedLatLng(): TedLatLng {
         return TedLatLng(REST_LAT, REST_LNG)

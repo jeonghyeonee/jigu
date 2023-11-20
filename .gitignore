@@ -76,14 +76,6 @@ captures/
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
-### Firebase ###
-.idea
-**/node_modules/*
-**/.firebaserc
-
-### Firebase Patch ###
-.runtimeconfig.json
-.firebase/
 
 # Android Patch
 gen-external-apklibs

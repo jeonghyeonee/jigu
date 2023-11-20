@@ -12,6 +12,97 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/radius_8dp"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/icon_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/base_gray" />
+
+            <EditText
+                android:id="@+id/search_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@null"
+                android:fontFamily="@font/pretendard_medium"
+                android:hint="@string/rest_search_hint"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:textColor="@color/base_black"
+                android:textSize="15dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/search_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/resetBtn"
+            android:layout_width="125dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/radius_16dp"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_bar">
+
+            <ImageView
+                android:id="@+id/resetImg"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:elevation="4dp"
+                android:src="@drawable/icon_reload"
+                app:layout_constraintBottom_toBottomOf="@+id/resetBtn"
+                app:layout_constraintStart_toStartOf="@+id/resetBtn"
+                app:layout_constraintTop_toTopOf="@+id/resetBtn" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="4dp"
+                android:letterSpacing="-0.02"
+                android:text="여기에서 재검색"
+                android:textColor="@color/gray060"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/resetBtn"
+                app:layout_constraintEnd_toEndOf="@+id/resetBtn"
+                app:layout_constraintStart_toEndOf="@+id/resetImg"
+                app:layout_constraintTop_toTopOf="@+id/resetBtn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <com.naver.maps.map.MapView
             android:id="@+id/map_fragment"
             android:layout_width="match_parent"
@@ -20,7 +111,50 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_current_location"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="140dp"
+            android:background="@drawable/radius_20dp"
+            android:backgroundTint="@color/white"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/icon_current_location"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_current_location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/base_gray" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/rest_content_layout"
+            layout="@layout/layout_rest_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="74dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include layout="@layout/sliding_up_panel" android:id="@+id/sliding_list"/>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
