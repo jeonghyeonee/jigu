@@ -76,6 +76,12 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:20.0.0'
 
     implementation 'io.github.ParkSangGwon:tedclustering-naver:1.0.2'
+
+    // for barcode function
+    implementation 'com.google.zxing:core:3.4.0'
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'
