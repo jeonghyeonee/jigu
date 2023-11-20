@@ -2,7 +2,7 @@
 
 > "JiGu" is an application dedicated to enhancing the convenience of individuals following a vegetarian lifestyle. Through a variety of features, it aims to make vegetarian living easier and more enjoyable.
 
-![image](https://github.com/jeonghyeonee/jigu/assets/33801356/796f87da-f799-4f42-83e8-bcb275f72d27)
+![image](https://github.com/jeonghyeonee/jigu/assets/33801356/13ba2120-9ef5-486a-9875-ade4cecedcea)
 
 - [Features](#features)
 - [Repository Structure](#repository-structure)
